@@ -6,15 +6,18 @@ const cartItemCountSlice = createSlice({
     name:'itemCount',
     initialState,
     reducers:{
-        increaseCount : (state,action) => {
+        increaseCount : (state = {},action) => {
+            if(!state) state = {}
             state[action.payload] = (state[action.payload] || 1) +  1
             console.log('clicked');
         },
-        decreaseCount : (state,action) => {
+        decreaseCount : (state = {},action) => {
+           if(!state) state = {}
            state[action.payload] > 1 ? state[action.payload] =  state[action.payload]  -  1 :state[action.payload] = state[action.payload]
            console.log('clicked');
         },
-        removeIdFromItemCount: (state,action) => {
+        removeIdFromItemCount: (state = {},action) => {
+            if(!state) state = {}
             delete state[action.payload]
         }
     }

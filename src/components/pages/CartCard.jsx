@@ -33,7 +33,7 @@ export default function CartCard({ data }) {
         />
       </div>
       <div className="max-w-[200px] w-full flex flex-col gap-3">
-        <p className="">{data.title.slice(0, 50)}</p>
+        <p>{data.title.slice(0, 50)}</p>
         <p>Price: Rs {data.price}</p>
       </div>
       <div className="flex flex-col items-center mr-5">
@@ -41,7 +41,7 @@ export default function CartCard({ data }) {
           <button onClick={() => dispatch(decreaseCount(data.id))} className="bg-gray-700 text-white   text-2xl rounded-md px-2 cursor-pointer">
             -
           </button>
-          <span>{itemCount[data.id] || 1}</span>
+          <span>{itemCount?.[data.id] || 1}</span>
           <button onClick={() => dispatch(increaseCount(data.id))} className="bg-gray-700 text-white  text-2xl rounded-md px-2 cursor-pointer">
             +
           </button>

@@ -54,6 +54,17 @@ export default function Sidebar() {
             Cart
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              isActive ? "text-blue-600 font-bold" : "text-gray-700"
+            }
+          >
+            Login
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

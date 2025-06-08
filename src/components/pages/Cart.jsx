@@ -12,17 +12,16 @@ export default function CartPage() {
 
   useEffect(() => {
     const total = cart.reduce(
-      (sum, item) => sum + item.price * (itemCount[item.id] || 1),
+      (sum, item) => sum + item.price * (itemCount?.[item.id] || 1),
       0
     );
     setTotalAmount(total.toFixed(2));
 
-  const count =
-    cart.length +
-    Object.keys(itemCount).reduce((sum, key) => sum + itemCount[key], 0) -
-    Object.keys(itemCount).length;
-
-  setCountTotal(count)
+  const count = cart.reduce(
+    (sum, item) => sum + (itemCount?.[item.id] || 1),
+    0
+  );
+  setCountTotal(count);
 
   }, [cart, itemCount]);
 
