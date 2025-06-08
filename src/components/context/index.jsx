@@ -13,7 +13,8 @@ export default function GlobalState({children}){
 
     const [showSidebar,setShowSidebar] = useState(false)
     const [loading,setLoading] = useState(false)
-    const [recipeList,setRecipeList] = useState([])
+    const [itemList,setItemList] = useState([])
+    const [filteredItemList, setFilteredItemList] = useState([]);
 
     async function fetchProduct(){
       try{
@@ -24,7 +25,8 @@ export default function GlobalState({children}){
 
         if(data){
           setLoading(false)
-          setRecipeList(data)
+          setItemList(data)
+          setFilteredItemList(data)
         }
 
       }catch(e){
@@ -49,8 +51,10 @@ export default function GlobalState({children}){
             handleToggleSidebar,
             showSidebar,
             fetchProduct,
-            recipeList,
-            loading
+            itemList,
+            loading,
+            filteredItemList,
+            setFilteredItemList
           }}
         >
         {children}
