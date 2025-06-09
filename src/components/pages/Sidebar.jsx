@@ -8,7 +8,11 @@ export default function Sidebar() {
   if (!showSidebar) return null;
 
   return (
-    <div className="w-60 bg-gray-200  p-4 text-xl font-bold mt-1">
+    <div
+      className={`w-full md:w-60 bg-gray-200 p-4 text-lg md:text-xl font-bold mt-1 h-full overflow-y-auto ${
+        showSidebar ? "block" : "hidden"
+      }`}
+    >
       <ul className="flex flex-col gap-5 pt-10">
         <li>
           <NavLink

@@ -1,42 +1,19 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "../context";
 import { useNavigate } from "react-router-dom";
+import validate from "../utils/validate";
 
 export default function LoginPage() {
   const { userDetail, setUserDetail } = useContext(GlobalContext);
   const [error, setError] = useState({});
   const navigate = useNavigate();
 
-  const validate = () => {
-    const newErrors = {};
-    if (!userDetail.name.trim()) newErrors.name = "Name is required!";
-
-    if (!userDetail.email.trim()) newErrors.email = "Email is required.";
-
-    if (!userDetail.password.trim())
-      newErrors.password = "Password is required.";
-
-    const isValidEmail =
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(userDetail.email);
-    const isValidPassword =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(
-        userDetail.password
-      );
-
-    if (!isValidEmail && userDetail.email.trim()) {
-      newErrors.email = "Email is invalid";
-    }
-    if (!isValidPassword && userDetail.password.trim()) {
-      newErrors.password = "Password is invalid";
-    }
-    return newErrors;
-  };
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
     console.log(userDetail);
 
-    const validationError = validate();
+    const validationError = validate(userDetail);
 
     if (Object.keys(validationError).length > 0) {
       setError(validationError);

@@ -31,7 +31,7 @@ export default function GlobalState({children}){
 
       }catch(e){
         console.log(e);
-        setLoading(true)
+        setLoading(false)
       }
     }
 

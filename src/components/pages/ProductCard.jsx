@@ -1,21 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../store/cartSlice";
+import useCart from "../hooks/useCart";
 
 export default function ProductCard({ data }) {
-  const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state);
-
-  function handleAddToCart() {
-    dispatch(addToCart(data));
-  }
-
-  function handleRemoveFromCart() {
-    dispatch(removeFromCart(data.id));
-  }
   
+  const {addItemToCart, 
+    removeItemFromCart, 
+    isItemInCart} = useCart()
 
   return (
-    <div className="w-72 flex flex-col gap-4 m-5 bg-violet-500 p-3 rounded-md shadow-2xl shadow-gray-900">
+    <div className="w-full sm:w-64 md:w-72 flex flex-col gap-4 m-2 md:m-5 bg-violet-500 p-3 rounded-md shadow-lg md:shadow-2xl shadow-gray-900">
       <div>
         <img
           src={data.image}
@@ -29,14 +23,15 @@ export default function ProductCard({ data }) {
           <p className="text-white">Price :Rs {data.price}</p>
         </div>
         <button
-          onClick={
-            cart.some((item) => item.id === data.id)
-              ? handleRemoveFromCart
-              : handleAddToCart
+          onClick={() => {
+            isItemInCart(data.id)
+              ? removeItemFromCart(data.id)
+              : addItemToCart(data)
+            }
           }
           className="bg-violet-900 text-white h-10 rounded mt-2 cursor-pointer"
         >
-          {cart.some((item) => item.id === data.id)
+          {isItemInCart(data.id)
             ? "Remove from cart"
             : "Add to cart"}
         </button>
@@ -45,14 +40,13 @@ export default function ProductCard({ data }) {
   );
 }
 
-
 // state is always an object, regardless of what's inside each slice.
 
 // cart can be an array, but you're not destructuring the array — you're destructuring the top-level object.
 
 // You destructure it like const { cart } = state only for cleaner access.
 
-// useSelector: 
+// useSelector:
 
 // It subscribes your component to the Redux store.
 
